@@ -1,0 +1,35 @@
+﻿@model List<Project_ado.Models.Employee>
+<h2>Employee List</h2>
+@if (TempData["errorMessage"] != null)
+{
+	<p style=" = "color: red;">@TempData["errorMessage"]</p>
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Full Name</th>
+            <th>Date of Birth</th>
+            <th>Email</th>
+            <th>Salary</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Looping through the employee list -->
+        @foreach (var emp in Model)
+        {
+            <tr>
+                <td>@emp.Id</td>
+                <td>@emp.FullName</td>
+                <td>@emp.DateOfBirth.ToShortDateString()</td>
+                <td>@emp.Email</td>
+                <td>@emp.Salary.ToString("C")</td> <!-- C for currency format -->
+                <td>
+                    <a href="@Url.Action("Edit", "Employee", new { id = emp.Id })" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="@Url.Action("Delete", "Employee", new { id = emp.Id })" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

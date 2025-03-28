@@ -1,0 +1,40 @@
+﻿@model Project_ado.Models.Employee
+
+<h2>Create Employee</h2>
+
+@using (Html.BeginForm("Create", "Employee", FormMethod.Post))
+{
+    <div>
+        <label>First Name</label>
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Enter First Name" })
+        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Last Name</label>
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Enter Last Name" })
+        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Date of Birth</label>
+        @Html.TextBoxFor(m => m.DateOfBirth, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Email</label>
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter Email" })
+        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <label>Salary</label>
+        @Html.TextBoxFor(m => m.Salary, new { @class = "form-control", placeholder = "Enter Salary" })
+        @Html.ValidationMessageFor(m => m.Salary, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a href="@Url.Action("Index", "Employee")" class="btn btn-secondary">Cancel</a>
+}
+
