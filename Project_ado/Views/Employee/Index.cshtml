@@ -2,7 +2,7 @@
 <h2>Employee List</h2>
 @if (TempData["errorMessage"] != null)
 {
-	<p style=" = "color: red;">@TempData["errorMessage"]</p>
+    <p style="color: red;">@TempData["errorMessage"]</p>
 }
 <table class="table table-striped">
     <thead>
@@ -26,8 +26,13 @@
                 <td>@emp.Email</td>
                 <td>@emp.Salary.ToString("C")</td> <!-- C for currency format -->
                 <td>
-                    <a href="@Url.Action("Edit", "Employee", new { id = emp.Id })" class="btn btn-primary btn-sm">Edit</a>
-                    <a href="@Url.Action("Delete", "Employee", new { id = emp.Id })" class="btn btn-danger btn-sm">Delete</a>
+                    <a href="@Url.Action("Update", "Employee", new { id = emp.Id })" class="btn btn-primary btn-sm">Edit</a>
+                    <!-- Delete Button -->
+                    @using (Html.BeginForm("Delete", "Employee", FormMethod.Post))
+                    {
+                        @Html.Hidden("id", emp.Id) <!-- Pass the ID in a hidden field -->
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this employee?')">Delete</button>
+                    }
                 </td>
             </tr>
         }

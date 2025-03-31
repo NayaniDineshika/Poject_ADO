@@ -54,6 +54,59 @@ namespace Project_ado.Controllers
             return RedirectToAction("Index"); // Redirect to prevent re-posting
         }
 
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            var employee = _dal.GetEmployeeeById(id);
+            if (employee == null)
+            {
+                TempData["errorMessage"] = "Employee Not Fpond";
+                return View(employee);
+            }
+
+            return View(employee);
+          
+        }
+
+        [HttpPost]
+        public IActionResult Update (Employee employee)
+        {
+            if(!ModelState.IsValid)
+            {
+                TempData["errorMessage"] = "Invalid data";
+                return View(employee);
+            }
+
+            bool result = _dal.UpdateEmployee(employee);
+            if (!result)
+            {
+                TempData["errorMessage"] = "Failed to update employee";
+                return View(employee);
+            }
+            TempData["successMessage"] = "Employee updated successfully";
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            // Pass only the ID to the DAL method
+            bool result = _dal.DeleteEmployee(id);
+            if (!result)
+            {
+                TempData["errorMessage"] = "Failed to delete employee";
+                return RedirectToAction("Index");
+            }
+
+            TempData["successMessage"] = "Employee deleted successfully";
+            return RedirectToAction("Index");
+        }
+
+
+
+
 
     }
 
